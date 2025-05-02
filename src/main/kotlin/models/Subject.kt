@@ -3,4 +3,7 @@ package com.example.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Location(val id: Long? = null, val name: String)
+data class Subject(
+    val id: Long? = null,
+    val name: String
+)

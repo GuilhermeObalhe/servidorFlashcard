@@ -8,7 +8,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object Locations : Table() {
-    val id = integer("id").autoIncrement()
+    val id = long("id").autoIncrement()
     val name = varchar("name", 255)
     override val primaryKey = PrimaryKey(id)
 }
@@ -30,13 +30,13 @@ class LocationDao(private val db: Database) {
         }
     }
 
-    suspend fun create(location: Location): Int = dbQuery {
+    suspend fun create(location: Location): Long = dbQuery {
         Locations.insert {
             it[name] = location.name
         }[Locations.id]
     }
 
-    suspend fun delete(id: Int): Boolean = dbQuery {
+    suspend fun delete(id: Long): Boolean = dbQuery {
         Locations.deleteWhere { Locations.id eq id } > 0
     }
 
